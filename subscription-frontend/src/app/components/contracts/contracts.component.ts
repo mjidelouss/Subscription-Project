@@ -139,7 +139,7 @@ export class ContractsComponent implements OnInit {
     }
     this.saving.set(true);
     const raw = this.form.getRawValue();
-    this.contractService.create({ quoteId: raw.quoteId!, dateEffet: raw.dateEffet }).subscribe({
+    this.contractService.create({ quoteId: raw.quoteId!, dateEffet: raw.dateEffet! }).subscribe({
       next: (contract) => {
         this.notifications.success(`Contrat ${contract.numeroContrat} cree.`);
         this.form.reset();
