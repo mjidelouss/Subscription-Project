@@ -1,0 +1,30 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: subscription-manager-backend
+    container_name: subscription-backend
+    ports:
+      # Exposed on the host for direct API access / debugging (e.g. H2 console).
+      - "8080:8080"
+    networks:
+      - subscription-net
+
+  frontend:
+    build:
+      context: ./subscription-frontend
+      dockerfile: Dockerfile
+    image: subscription-manager-frontend
+    container_name: subscription-frontend
+    ports:
+      # Open the app at http://localhost:4200
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - subscription-net
+
+networks:
+  subscription-net:
+    driver: bridge
